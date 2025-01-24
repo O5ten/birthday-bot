@@ -15,3 +15,6 @@ jobs:
       with:
         groovy-version: '2.9'
     - run: groovy congratulations.groovy
+      env: 
+        PERSONAL_DATA: ${{ secrets.PERSONAL_DATA }}
+        BOT_BEARER_TOKEN: ${{ secrets.BOT_BEARER_TOKEN }}
