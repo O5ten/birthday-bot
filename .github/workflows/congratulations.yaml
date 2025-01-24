@@ -1,6 +1,9 @@
 name: Congratulations
 
 on:
+  push:
+    branches:
+      - main
   schedule:
   - cron: '0 7 * * *'
   workflow_dispatch:
