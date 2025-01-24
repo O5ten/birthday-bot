@@ -32,7 +32,7 @@ if(persons) {
     def nameString = persons.size() == 1 ? 
             persons[0].name : 
             (persons[0].name + ' och ' + persons[1].name)
-    """curl -k -H "Authorization: Bearer $BOT_BEARER_TOKEN" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$MICKE", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
+    """curl -k -H "Authorization: Bearer $BOT_BEARER_TOKEN" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$PI_DELAR", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
 } else {
     println "Nobody has a birthday today. :'("
 }
