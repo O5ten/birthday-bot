@@ -6,8 +6,7 @@ def getDate() {
     return [year: date[0] as int, month: date[1] as int, day: date[2] as int]
 }
 
-
-def getBirthdayPerson(){
+def getBirthdayPerson() {
     def date = getDate()
     def people = new YamlSlurper().parseText(System.getenv("PERSONAL_DATA")).people
     def potentialPersons = people.findAll {p -> p.date.month == date.month && p.date.day == date.day}
@@ -20,11 +19,11 @@ def getBirthdayPerson(){
     }
     return potentialPersons
 }
+
 def MICKE='7cnjxi1g6bdi8ffmo6tz3mc3co'
 def PI_DELAR='e3pb6xqy1b87tfuze691at7ajo'
 
 def persons = getBirthdayPerson();
-
 if(persons) {
     def ageString = persons.size() == 1 ? 
             persons[0].age : 
