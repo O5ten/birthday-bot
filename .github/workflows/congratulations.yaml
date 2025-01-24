@@ -14,7 +14,7 @@ jobs:
     - name: Setup Groovy
       uses: wtfjoke/setup-groovy@v2
       with:
-        groovy-version: '2.9'
+        groovy-version: '4.x'
     - run: groovy congratulations.groovy
       env: 
         PERSONAL_DATA: ${{ secrets.PERSONAL_DATA }}
