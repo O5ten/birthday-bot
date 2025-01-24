@@ -1,8 +1,9 @@
 name: Continuous Delivery
 
 on:
+  schedule:
+  - cron: '0 7 * * *'
   workflow_dispatch:
-  cron: '0 7 * * *'
 
 jobs:
   congratulate:
