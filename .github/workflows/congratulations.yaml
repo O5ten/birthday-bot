@@ -11,7 +11,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Setup Groovy
-      - uses: wtfjoke/setup-groovy@v2
+      uses: wtfjoke/setup-groovy@v2
       with:
         groovy-version: '2.9'
     - run: groovy congratulations.groovy
