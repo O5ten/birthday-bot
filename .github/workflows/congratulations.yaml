@@ -20,5 +20,5 @@ jobs:
         groovy-version: '4.x'
     - run: groovy congratulations.groovy
       env: 
-        PERSONAL_DATA: ${{ secrets.PERSONAL_DATA }}
+        PERSONAL_DATA: ${{ vars.PERSONAL_DATA }}
         BOT_BEARER_TOKEN: ${{ secrets.BOT_BEARER_TOKEN }}
