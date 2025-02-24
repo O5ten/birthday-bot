@@ -1,5 +1,6 @@
 import groovy.json.*
 import groovy.yaml.YamlSlurper
+import java.lang.StringBuffer
 
 def getDate() {
     def date = java.time.Instant.now().toString().tokenize('T')[0].tokenize('-')
@@ -23,7 +24,7 @@ def getBirthdayPerson() {
 def MICKE='7cnjxi1g6bdi8ffmo6tz3mc3co'
 def PI_DELAR='e3pb6xqy1b87tfuze691at7ajo'
 
-def botBearerToken = System.getenv('BOT_BEARER_TOKEN')
+def BOT_BEARER_TOKEN = System.getenv('BOT_BEARER_TOKEN')
 
 def persons = getBirthdayPerson();
 if(persons) {
@@ -33,7 +34,12 @@ if(persons) {
     def nameString = persons.size() == 1 ? 
             persons[0].name : 
             (persons[0].name + ' och ' + persons[1].name)
-    """curl -k -H "Authorization: Bearer $botBearerToken" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$PI_DELAR", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
+    def sout = new StringBuffer(), serr = new StringBuffer()
+    println "Congratulating $nameString who is $ageString years old today!"
+    def proc = """curl -v -k -H "Authorization: Bearer $BOT_BEARER_TOKEN" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$PI_DELAR", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
+    proc.consumeProcessOutput(sout, serr)
+    println "STDOUT\n $sout"
+    println "STDERR\n $serr"
 } else {
     println "Nobody has a birthday today. :'("
 }
