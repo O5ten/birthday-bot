@@ -23,6 +23,8 @@ def getBirthdayPerson() {
 def MICKE='7cnjxi1g6bdi8ffmo6tz3mc3co'
 def PI_DELAR='e3pb6xqy1b87tfuze691at7ajo'
 
+def botBearerToken = System.getenv('BOT_BEARER_TOKEN')
+
 def persons = getBirthdayPerson();
 if(persons) {
     def ageString = persons.size() == 1 ? 
@@ -31,7 +33,7 @@ if(persons) {
     def nameString = persons.size() == 1 ? 
             persons[0].name : 
             (persons[0].name + ' och ' + persons[1].name)
-    """curl -k -H "Authorization: Bearer $BOT_BEARER_TOKEN" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$PI_DELAR", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
+    """curl -k -H "Authorization: Bearer $botBearerToken" https://mattermost.05ten.se/api/v4/posts -d '{"channel_id": "$PI_DELAR", "message": "@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!"}'""".execute()
 } else {
     println "Nobody has a birthday today. :'("
 }
