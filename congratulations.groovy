@@ -35,8 +35,13 @@ if(persons) {
             (persons[0].name + ' och ' + persons[1].name)
     def sout = new StringBuffer(), serr = new StringBuffer()
     println "Congratulating $nameString who is $ageString years old today!"
-    def cmd = """curl -v -k -H'Authorization: Bearer $BOT_BEARER_TOKEN' https://mattermost.05ten.se/api/v4/posts -d '{\"channel_id\": \"$PI_DELAR\", \"message\": \"@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!\"}'"""
-    println cmd
+    def cmd = [
+        "curl", "-v", "-k",
+        "-H", "Authorization: Bearer ${BOT_BEARER_TOKEN}",
+        "https://mattermost.05ten.se/api/v4/posts",
+        "-d", "{\"channel_id\": \"$PI_DELAR\", \"message\": \"@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!\"}"
+    ]
+    println cmd.join(' ')
     def proc = cmd.execute()
     proc.consumeProcessOutput(sout, serr)
     println "STDOUT\n $sout"
