@@ -13,7 +13,6 @@ def getBirthdayPerson() {
     def potentialPersons = people.findAll {p -> p.date.month == date.month && p.date.day == date.day}
     if(potentialPersons) {
         potentialPersons.each { p -> 
-            println "$p.date.year && $date.year"
             p.age = date.year - p.date.year    
         }
          
@@ -37,6 +36,7 @@ if(persons) {
     def sout = new StringBuffer(), serr = new StringBuffer()
     println "Congratulating $nameString who is $ageString years old today!"
     def cmd = """curl -v -k -H'Authorization: Bearer $BOT_BEARER_TOKEN' https://mattermost.05ten.se/api/v4/posts -d '{\"channel_id\": \"$PI_DELAR\", \"message\": \"@all Grattis på födelsedagen **$nameString** som fyller **$ageString** år idag!\"}'"""
+    println cmd
     def proc = cmd.execute()
     proc.consumeProcessOutput(sout, serr)
     println "STDOUT\n $sout"
