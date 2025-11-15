@@ -21,7 +21,7 @@ def getBirthdayPerson() {
 }
 
 def MICKE='7cnjxi1g6bdi8ffmo6tz3mc3co'
-def PI_DELAR='e3pb6xqy1b87tfuze691at7ajo'
+def PI_DELAR='iey4r4u9zbnn8psi41weokpkto'
 
 def BOT_BEARER_TOKEN = System.getenv('BOT_BEARER_TOKEN')
 
