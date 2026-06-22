@@ -6,7 +6,8 @@ on:
     branches:
       - main
   schedule:
-  - cron: '0 5 * * *'
+  - cron: '30 7 * * *'
+    timezone: "Europe/Stockholm"
   workflow_dispatch:
 
 jobs:
