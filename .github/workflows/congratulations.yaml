@@ -2,7 +2,7 @@ name: Congratulations
 
 on:
   schedule:
-    - cron: '37 6 * * *'          # trigger ~23 min early, off the busy :00 slot
+    - cron: '37 6 * * *'
       timezone: "Europe/Stockholm"
   workflow_dispatch:
 
@@ -20,6 +20,16 @@ jobs:
             sleep $((target - now))
           fi
 
+      - name: Skip if too late
+        if: github.event_name == 'schedule'
+        run: |
+          now=$(date +%s)
+          latest=$(TZ=Europe/Stockholm date -d "today 07:30" +%s)
+          if [ "$now" -gt "$latest" ]; then
+            echo "Started too late, skipping today's post"
+            exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -28,5 +38,8 @@ jobs:
         with:
           groovy-version: '4.x'
 
-      - run: groovy congratulations.groovy
+      - name: Congratulate
+        run: groovy congratulations.groovy
         env:
+          PERSONAL_DATA: ${{ vars.PERSONAL_DATA }}
+          BOT_BEARER_TOKEN: ${{ secrets.BOT_BEARER_TOKEN }}
