@@ -1,17 +1,22 @@
 name: Congratulations
 
+# Triggered every morning by cron-job.org through the workflow_dispatch API
+# with inputs.scheduled=true (GitHub's own cron ran hours late).
+# A manual run from the Actions tab leaves scheduled=false and skips the time guards.
 on:
-  schedule:
-    - cron: '37 6 * * *'
-      timezone: "Europe/Stockholm"
   workflow_dispatch:
+    inputs:
+      scheduled:
+        description: 'Set by cron-job.org; enables the 07:00-07:30 time window'
+        type: boolean
+        default: false
 
 jobs:
   congratulate:
     runs-on: ubuntu-24.04
     steps:
       - name: Wait until 07:00 Stockholm time
-        if: github.event_name == 'schedule'
+        if: inputs.scheduled
         run: |
           target=$(TZ=Europe/Stockholm date -d "today 07:00" +%s)
           now=$(date +%s)
@@ -21,7 +26,7 @@ jobs:
           fi
 
       - name: Skip if too late
-        if: github.event_name == 'schedule'
+        if: inputs.scheduled
         run: |
           now=$(date +%s)
           latest=$(TZ=Europe/Stockholm date -d "today 07:30" +%s)
